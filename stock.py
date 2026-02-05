@@ -347,8 +347,8 @@ def shopping_cart():
             erase_screen()
             print("CARRINHO APAGADO!")
             cart.clear()
-            time.sleep(1)
             save_data()
+            time.sleep(1)
             break
         else:
             break
