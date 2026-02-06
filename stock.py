@@ -100,7 +100,7 @@ def add():
             return
         
     print("Qual o custo do produto?")
-    product_add_COST = input()
+    product_add_COST = input().replace(',', '.')
     try:
         float(product_add_COST)
     except ValueError:
@@ -108,7 +108,7 @@ def add():
         return
     
     print("Qual o valor do produto? ")
-    product_add_VALUE = input()
+    product_add_VALUE = input().replace(',', '.')  
     try:
         float(product_add_VALUE)
     except ValueError:
@@ -147,10 +147,29 @@ def remove():
     print("Qual o ID ou NOME do produto?")
     product_remove_ID = input()
 
+    erase_screen()
+    print("PRODUTO SELECIONADO:")
     for item in stock:
         if item['id'] == product_remove_ID or item['name'] == product_remove_ID:
             founded_product = item
             break
+
+    if not founded_product:
+        erase_screen()
+        error("ERRO! Produto não encontrado!")
+        time.sleep(1)
+        return
+
+    print(f"ID: {founded_product['id']} \nNome: {founded_product['name']} \nPreço: R${founded_product['value']}")
+    print("\nPressione enter pra continuar")
+    enter = input()
+    if enter == '':
+        pass
+    else:
+        erase_screen()
+        print("Voltando ao menu...")
+        time.sleep(0.5)
+        return
 
     if founded_product:
         stock.remove(founded_product)
@@ -158,10 +177,6 @@ def remove():
         erase_screen()
         print("Produto removido!")
         time.sleep(1)  
-    else:
-        erase_screen()
-        print("ERRO! Produto não encontrado!")
-        time.sleep(1)
 
 
 def edit_product():
